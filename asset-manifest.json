@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/elite-distribution/static/css/main.d065bbd6.css",
+    "main.js": "/elite-distribution/static/js/main.092d61cb.js",
+    "index.html": "/elite-distribution/index.html",
+    "main.d065bbd6.css.map": "/elite-distribution/static/css/main.d065bbd6.css.map",
+    "main.092d61cb.js.map": "/elite-distribution/static/js/main.092d61cb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d065bbd6.css",
+    "static/js/main.092d61cb.js"
+  ]
+}
