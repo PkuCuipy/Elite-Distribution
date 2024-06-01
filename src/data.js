@@ -43,7 +43,7 @@ let f_reviseCoordinates = __getRotateThenResizeThenMoveFunction(
 //                           精英数据预处理
 //===========================================================================
 // 精英数据预处理 (添加位置获取函数, 修正经纬度坐标)
-const ELITE_DATA = data2.map(d => {     // 读取精英数据, 并附加位置获取函数
+let ELITE_DATA = data2.map(d => {     // 读取精英数据, 并附加位置获取函数
   let d_copy = {...d}                           // 避免修改原数据
   for (let year_xy of d_copy.year_location) {   // 重映射坐标点以适应地图
     [year_xy.x, year_xy.y] = f_reviseCoordinates([year_xy.x, year_xy.y])
@@ -64,6 +64,8 @@ const ELITE_DATA = data2.map(d => {     // 读取精英数据, 并附加位置�
 // 机能不足, 采样一部分的数据 (供 CPU 版本使用)
 const ELITE_DATA_LITE = ELITE_DATA.filter((d, i) => !(i % 10))
 
+// fixme: 永远仅使用部分数据
+ELITE_DATA = ELITE_DATA_LITE
 
 //===========================================================================
 //                              筛选精英数据

@@ -44,6 +44,7 @@ function CenteredText(props) {
       height: "101%",
       display: "grid",
       alignItems: "center",
+      userSelect: "none",
     }}> {props.children} </div>
   )
 }
@@ -67,8 +68,10 @@ class MainTitle extends React.Component {
         gridTemplateRows: "1fr",
         alignItems: "center",
       }}>
-        <div style={{textAlign:"center", fontSize: "1.3rem"}}>
+        <div style={{textAlign:"center", fontSize: "1.1rem", lineHeight: "1.2"}}>
           中国 {this.props.year} 年社会精英地域分布图
+          <br/>
+          Distribution of China’s Elites in {this.props.year} A.D.
         </div>
       </div>
     )
@@ -96,6 +99,7 @@ class Choice extends React.Component {
         }}
         onMouseOver={()=>{this.setState({hovered: true})}}
         onMouseOut={()=>{this.setState({hovered: false})}}
+        title={this.props.title}
         style={{
           fontSize: "0.9em",
           borderWidth: "0",
@@ -122,12 +126,12 @@ class EliteTypeSetting extends React.Component {
     return (
       <div id="elite-type-setting" style={{
             display: "grid",
-            gridTemplateColumns: "10fr 2fr 30fr 2fr",
+            gridTemplateColumns: "12fr 2fr 30fr 2fr",
             gridTemplateRows: "100%",
             alignItems: "center",
             textAlign: "center",
       }}>
-        <CenteredText> 精英类别 </CenteredText>
+        <CenteredText> Elite&nbsp;Type </CenteredText>
         <PlaceHolder/>
         <div style={{
           height: "100%",
@@ -137,13 +141,18 @@ class EliteTypeSetting extends React.Component {
           gridTemplateRows: "100%",
           alignItems: "center",
         }}>
-          {["进士", "郡望", "官职"].map((c) =>
+          {[
+            ["进士", "Jinshi", "Individuals who passed the imperial examinations"],
+            ["郡望", "County", "Members from distinguished families"],
+            ["官职", "Officer", "Persons holding official positions with high social status"]
+          ].map((c) =>
             <Choice
-              choiceName={c}
-              key={c}
-              themeColor={THEME_COLOR[c]}
-              onChoiceSelected={()=>{this.props.onEliteTypeChange(c)}}
-              isClicked={c === this.props.eliteType} />
+              choiceName={c[1]}
+              title={c[2]}
+              key={c[0]}
+              themeColor={THEME_COLOR[c[0]]}
+              onChoiceSelected={()=>{this.props.onEliteTypeChange(c[0])}}
+              isClicked={c[0] === this.props.eliteType} />
           )}
         </div>
         <PlaceHolder/>
@@ -169,7 +178,7 @@ class RangeBar extends React.Component {
         gridTemplateRows: "100%",
         alignItems: "center",
       }}>
-        <div> {this.props.name} </div>
+        <CenteredText hideLine={true}> <span style={{"paddingLeft":"0.3rem", "paddingRight":"0.3rem"}}>{this.props.name}</span> </CenteredText>
         <input
           type="range"
           min={this.props.min}
@@ -189,12 +198,12 @@ class MapSetting extends React.Component {
     return (
       <div id="map-setting" style={{
         display: "grid",
-        gridTemplateColumns: "10fr 34fr",
+        gridTemplateColumns: "12fr 34fr",
         gridTemplateRows: "100%",
         alignItems: "center",
         textAlign: "center",
       }}>
-        <CenteredText> 绘制选项 </CenteredText>
+        <CenteredText> Plot & Arrow Config </CenteredText>
         <div style={{
           height: "100%",
           width: "100%",
@@ -204,7 +213,7 @@ class MapSetting extends React.Component {
           alignItems: "center",
         }}>
           <RangeBar
-            name="平滑程度"
+            name="Smooth"
             min={0.1}
             max={2}
             step={0.1}
@@ -212,7 +221,7 @@ class MapSetting extends React.Component {
             onValueChange={this.props.onKernelWidthChange}
           />
           <RangeBar
-            name="箭头旋转"
+            name="Rotation"
             min={0}
             max={360}
             step={0.1}
@@ -220,7 +229,7 @@ class MapSetting extends React.Component {
             onValueChange={this.props.onArrowAngleChange}
           />
           <RangeBar
-            name="箭头长度"
+            name="Length"
             min={1}
             max={20}
             step={0.1}
@@ -451,7 +460,7 @@ class Timeline extends React.Component {
         alignItems: "center",
         textAlign: "center",
       }}>
-        <CenteredText> 时间轴 </CenteredText>
+        <CenteredText> <span style={{"padding": "0.5rem"}}>TimeLine</span> </CenteredText>
         <div style={{
           height: "100%",
           width: "100%",
@@ -461,13 +470,13 @@ class Timeline extends React.Component {
           alignItems: "center",
         }}>
 
-          <CenteredText hideLine={true}> 统计人数 </CenteredText>
+          <CenteredText hideLine={true}> &nbsp;#of&nbsp;Elites&nbsp; </CenteredText>
           <PeopleAlivePlot appSize={this.props.appSize}/>
 
-          <CenteredText hideLine={true}> 时间节点 </CenteredText>
+          <CenteredText hideLine={true}> &nbsp;Dynasty </CenteredText>
           <BigEvents appSize={this.props.appSize}/>
 
-          <CenteredText hideLine={true}> 年份选择 </CenteredText>
+          <CenteredText hideLine={true}> Year </CenteredText>
           <YearBar
             min={YEAR_MIN}
             max={YEAR_MAX}

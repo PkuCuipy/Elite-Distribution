@@ -7,7 +7,7 @@ import {
   MAP_CENTER,
   generateArrow,
   kde_2d_gpu,
-  kde_2d_cpu, kde_1d_gpu,
+  kde_2d_cpu,
 } from "./globals";
 import {getChinaMapJSON, getFilteredElites} from "./data";
 
@@ -256,17 +256,17 @@ function drawToggleScatterButton(svg, showing_scatter, toggle_state_func) {
     .attr("stroke", "#5d5dff")
     .attr("x", 0)
     .attr("y", 0)
-    .attr("width", 0.1125 * width)
+    .attr("width", 0.175 * width)
     .attr("height", 0.035 * height)
     .attr("rx", 5)
     .attr("ry", 5)
 
   // 文字
   g.append("text")
-    .text(showing_scatter ? "隐藏散点图" : "显示散点图")
+    .text(showing_scatter ? "Hide Scatter Plot" : "Show Scatter Plot")
     .attr("fill", "#fff")
     .attr("font-size", "0.5em")
-    .attr("x", height * 0.0065)
+    .attr("x", height * 0.015)
     .attr("y", height * 0.025)
 
   // 设置位置 + 绑定事件
@@ -291,21 +291,21 @@ function drawToggleContourButton(svg, showing_contour, toggle_state_func) {
     .attr("stroke", "#5d5dff")
     .attr("x", 0)
     .attr("y", 0)
-    .attr("width", 0.1125 * width)
+    .attr("width", 0.155 * width)
     .attr("height", 0.035 * height)
     .attr("rx", 5)
     .attr("ry", 5)
 
   // 文字
   g.append("text")
-    .text(showing_contour ? "隐藏密度图" : "显示密度图")
+    .text(showing_contour ? "Hide HeatMap" : "Show HeatMap")
     .attr("fill", "#fff")
     .attr("font-size", "0.5em")
-    .attr("x", height * 0.0065)
+    .attr("x", height * 0.015)
     .attr("y", height * 0.025)
 
   // 设置位置 + 绑定事件
-  g.attr("transform", `translate(${width * 0.05}, ${0.05 * height + 0.040 * height})`)
+  g.attr("transform", `translate(${width * 0.05}, ${0.05 * height + 1 * 0.05 * height})`)
     .on("click", toggle_state_func)
     .style("cursor", "pointer")
 }
@@ -327,21 +327,21 @@ function drawToggleCPUGPU(svg, now_using_gpu, toggle_state_func) {
     .attr("stroke", "#5d5dff")
     .attr("x", 0)
     .attr("y", 0)
-    .attr("width", 0.150 * width)
+    .attr("width", 0.145 * width)
     .attr("height", 0.035 * height)
     .attr("rx", 5)
     .attr("ry", 5)
 
   // 文字
   g.append("text")
-    .text(now_using_gpu ? "切换为部分数据 (当前: 全部数据 + GPU加速, 卡顿请切换模式)" : "切换为全部数据 (当前: 仅使用 10% 的数据, 提高绘制效率)")
+    .text(now_using_gpu ? "Current: GPU" : "Current: CPU")
     .attr("fill", "#fff")
     .attr("font-size", "0.5em")
-    .attr("x", height * 0.0065)
+    .attr("x", height * 0.015)
     .attr("y", height * 0.025)
 
   // 设置位置 + 绑定事件
-  g.attr("transform", `translate(${width * 0.05}, ${0.05 * height + 2 * 0.040 * height})`)
+  g.attr("transform", `translate(${width * 0.05}, ${0.05 * height + 2 * 0.05 * height})`)
     .on("click", toggle_state_func)
     .style("cursor", "pointer")
 }

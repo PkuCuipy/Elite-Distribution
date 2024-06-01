@@ -5,7 +5,7 @@ const gpu = new GPU();    // 创建 GPU 实例
 //===========================================================================
 //                            初始值 / 固定值
 //===========================================================================
-const DEFAULT_USE_GPU = false
+const DEFAULT_USE_GPU = true
 const DEFAULT_KERNEL_WIDTH = 1.0;
 const DEFAULT_YEAR_SELECTED = 1051;
 const DEFAULT_ARROW_ANGLE = 27;
@@ -23,13 +23,13 @@ const THEME_COLOR = {
   官职: "#7b70e0",
 }
 const EVENTS = [
-  [618, "唐朝"],
-  [907, "五代十国"],
-  [960, "北宋"],
-  [1127, "南宋"],
-  [1276, "元朝"],
-  [1368, "明朝"],
-  [1636, "清朝"],
+  [618, "唐朝", "Tang"],
+  [907, "五代十国", "Five Dynasties and Ten Kingdoms"],
+  [960, "北宋", "North Song"],
+  [1127, "南宋", "South Song"],
+  [1276, "元朝", "Yuan"],
+  [1368, "明朝", "Ming"],
+  [1636, "清朝", "Qing"],
   [1911, "清朝结束(这个不要绘制!)"]
 ]
 

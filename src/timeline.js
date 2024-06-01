@@ -18,7 +18,7 @@ function drawBigEvents(svg) {
 
   // 计算每个朝代的持续时间
   for (let i = 0; i < EVENTS.length - 1; i++) {
-    EVENTS[i].push(EVENTS[i+1][0] - EVENTS[i][0])
+    EVENTS[i].duration = EVENTS[i+1][0] - EVENTS[i][0]
   }
 
   // 年份映射到像素
@@ -34,20 +34,20 @@ function drawBigEvents(svg) {
 
   gs.append("rect")
     .attr("x", d => xScale(d[0]))
-    .attr("width", d => (xScale(d[2]) - xScale(0)) - width * 0.005)
-    .attr("y", height / 4)
-    .attr("height", height / 2)
+    .attr("width", d => (xScale(d.duration) - xScale(0)) - width * 0.005)
+    .attr("y", height / 5)
+    .attr("height", height / 5 * 3)
     .attr("fill", "#d2c4ff")
     .attr("stroke", "#9e83ff")
     .attr("stroke-width", 0.5)
 
   // 鼠标悬浮提示
   gs.append("title")
-    .text(d => `${d[1]}: ${d[0]}~${d[0] + d[2]}`)
+    .text(d => `${d[1]} \n ${d[2]} \n ${d[0]}~${d[0] + d.duration}`)
 
   gs.append("text")
-    .text((d) => d[1][0])     // 只显示一个字
-    .attr("x", d => xScale(d[0] + d[2] / 2) - height * 0.29)
+    .text((d) => d[1][0]) // only show first char 只显示第一个字
+    .attr("x", d => xScale(d[0] + d.duration / 2) - height * 0.29)
     .attr("y", height * 0.685)
 }
 
@@ -62,7 +62,7 @@ function drawPeopleAlive(svg, bandwidth, data, L, R, color) {
   let margin = {
     "left": 0.005 * width,
     "right": 0.005 * width,
-    "top": 0.05 * height,
+    "top": 0.2 * height,
     "bottom": 0.3 * height
   }
 
@@ -76,6 +76,9 @@ function drawPeopleAlive(svg, bandwidth, data, L, R, color) {
 
   // 计算出所有点对，用于后续画图
   let density = kde_1d_gpu(bandwidth, sample, data)
+
+  // Curve 一下 y 值
+  density = density.map(d => [d[0], d[1] ** 0.4])
 
   // x 轴方向的比例尺
   const y = d3.scaleLinear()

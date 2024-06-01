@@ -1,5 +1,9 @@
 import * as d3 from "d3";
-import {generateArrow, kde_1d_gpu, kde_1d_cpu} from "./globals";
+import {
+  generateArrow,
+  kde_1d_gpu,
+  kde_1d_cpu
+} from "./globals";
 
 //===========================================================================
 //                            绘制一维 KDE 图
